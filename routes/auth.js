@@ -21,6 +21,8 @@ router.post('/signup', expressAsyncHandler(async (req, res, next) => {
       email: req.body.email,
       mobile: req.body.mobile,
       password: Pass,
+      adress: req.body.adress,
+      kisanid: req.body.kisanid,
     })
     await NewUser.save();
 
