@@ -16,11 +16,16 @@ const userModel = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    recentCrop: {
+        type: String,
+        
     }
     // recent searches
 }, {
     timeStamp: true
 });
+
 
 const User = mongoose.model("User", userModel);
 module.exports = User;
