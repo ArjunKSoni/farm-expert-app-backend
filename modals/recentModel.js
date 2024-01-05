@@ -1,6 +1,10 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const recentModel = mongoose.Schema({
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
     crop:{
         type: String,
     },
