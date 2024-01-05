@@ -17,6 +17,7 @@ const userModel = mongoose.Schema({
         type: String,
         required: true
     }
+    // recent searches
 }, {
     timeStamp: true
 });
