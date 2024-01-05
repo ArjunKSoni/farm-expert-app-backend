@@ -5,6 +5,14 @@ const userModel = mongoose.Schema({
         type: String,
         required: true
     },
+    kisanid:{
+        type: Number,
+        required: true
+    },
+    address:{
+        type: String,
+        required: true
+    },
     email: {
         type: String,
         required: true
@@ -16,10 +24,6 @@ const userModel = mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-    recentCrop: {
-        type: String,
-        
     }
     // recent searches
 }, {
