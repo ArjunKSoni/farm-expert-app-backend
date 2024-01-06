@@ -30,7 +30,9 @@ const recentModel = mongoose.Schema({
         type: Number, 
     }
 
-})
+},{
+    timestamps: true
+});
  
 const Recent = mongoose.model("Recent", recentModel );
 module.exports = Recent;
