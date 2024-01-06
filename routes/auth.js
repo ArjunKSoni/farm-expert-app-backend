@@ -21,7 +21,7 @@ router.post('/signup', expressAsyncHandler(async (req, res, next) => {
       email: req.body.email,
       mobile: req.body.mobile,
       password: Pass,
-      adress: req.body.adress,
+      address: req.body.address,
       kisanid: req.body.kisanid,
     })
     await NewUser.save();
@@ -29,6 +29,7 @@ router.post('/signup', expressAsyncHandler(async (req, res, next) => {
     const token = generateToken(NewUser._id);
     NewUser.token = token;
     await NewUser.save();
+    console.log("token", token);
 
     const user = await User.findById(NewUser._id);
     // console.log("1", user);
