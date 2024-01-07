@@ -5,13 +5,12 @@ const Recent = require('../modals/recentModel');
 const protect = require('../middleware/authmiddleware');
 const Crop = require('../modals/recentCropModel');
 
-
+// FindByIdAndUpdate
 // For storing searched crop names
 router.post('/store_crop_name', protect, expressAsyncHandler(async (req, res, next) => {
     try {
-        const searchExist = await Crop.findOne({ Crop: req.body.cropname })
+        const searchExist = await Crop.findOne({ crop: req.body.cropname })
         if (!searchExist) {
-
             const crops = await Crop.find({ user: req.id }).sort({ createdAt: 1 });
             if (crops.length >= 5) {
                 // Remove the oldest crop
@@ -26,7 +25,7 @@ router.post('/store_crop_name', protect, expressAsyncHandler(async (req, res, ne
             res.send({ data: search });
         }
         else {
-            await Crop.findOneAndDelete({crop: req.body.cropname })
+            await Crop.findByIdAndDelete(searchExist._id)
             const search = new Crop({
                 user: req.id,
                 crop: req.body.cropname,
