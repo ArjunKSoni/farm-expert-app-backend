@@ -8,9 +8,9 @@ const Crop = require('../modals/recentCropModel');
 // For storing searched crop names
 router.post('/store_crop_name', protect, expressAsyncHandler(async (req, res, next) => {
     try {
-        const searchExist = await Crop.findOne({Crop:req.body.cropname})
+        const searchExist = await Crop.findOne({crop:cropname._id})
         if(!searchExist){
-            const search = new Recent({
+            const search = new Crop({
                 user : req.id,
                 crop : req.body.cropname,
             })
