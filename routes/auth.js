@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const generateToken = require('../generateToken');
-const { hashPassword, comparePasswords } = require('../bcrypt');
+const generateToken = require('../config/generateToken');
+const { hashPassword, comparePasswords } = require('../config/bcrypt');
 const User = require('../modals/userModel');
-const protect = require('../authMiddleware');
+const protect = require('../middleware/authMiddleware');
 
 
 router.post('/signup', async (req, res, next) => {

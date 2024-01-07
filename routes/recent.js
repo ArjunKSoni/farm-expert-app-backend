@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Recent = require('../modals/recentModel');
-const protect = require('../authMiddleware');
+const protect = require('../middleware/authMiddleware');
 const Crop = require('../modals/recentCropModel');
 
 // FindByIdAndUpdate

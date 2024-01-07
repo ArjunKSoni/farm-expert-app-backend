@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('./modals/userModel');
+const User = require('../modals/userModel');
 
 // Making the protected route, ie only be used when u r authorised to access: middleware
 
