@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken');
-const User = require('../modals/userModel');
-const asyncHandler = require('express-async-handler');
+const User = require('./modals/userModel');
 
 // Making the protected route, ie only be used when u r authorised to access: middleware
 
-const protect = asyncHandler(async (req, res, next) => {
+const protect = async (req, res, next) => {
     try {
         let token;
         if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
@@ -35,7 +34,7 @@ const protect = asyncHandler(async (req, res, next) => {
         console.error('Error in protect middleware:', error);
         res.status(401).send({ error: 'Not authorized' });
     }
-})
+}
 
 // const protect = asyncHandler(async (req, res, next) => {
 //     try {
