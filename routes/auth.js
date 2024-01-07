@@ -36,7 +36,6 @@ router.post('/signup', expressAsyncHandler(async (req, res, next) => {
     // console.log("1", user);
     res.send({ status: user })
   }
-
 }));
 
 
