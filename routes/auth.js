@@ -68,7 +68,7 @@ router.post('/update_info', protect, expressAsyncHandler(async (req, res, next) 
   // const { name, email, password } = req.body;
 
   // pre-existing user
-  const existingUser = await User.findByIdAndUpdate(req.id, );
+  const existingUser = await User.findById(req.id);
   console.log(existingUser)
   if (existingUser) {
     // Update the existing user's information
@@ -83,9 +83,7 @@ router.post('/update_info', protect, expressAsyncHandler(async (req, res, next) 
     // }
 
     // Save the updated user information
-    // await existingUser.save();
-
-
+    await existingUser.save();
     res.send({ status: 'User information updated successfully' });
   }
   else {
