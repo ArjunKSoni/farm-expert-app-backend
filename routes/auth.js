@@ -12,7 +12,7 @@ router.post('/signup', async (req, res, next) => {
   // pre-existing user
   const userExist = await User.findOne({ Email: req.body.email });
   if (userExist) {
-    throw new Error("User already exists");
+    return res.send("User already exists");
   }
   else {
     var Pass = await hashPassword(req.body.password);
@@ -33,7 +33,7 @@ router.post('/signup', async (req, res, next) => {
 
     const user = await User.findById(NewUser._id);
     // console.log("1", user);
-    res.send({ status: user })
+    return res.send({ status: user })
   }
 
 });
