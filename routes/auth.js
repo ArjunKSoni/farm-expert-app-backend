@@ -1,13 +1,12 @@
 var express = require('express');
 var router = express.Router();
-const expressAsyncHandler = require('express-async-handler');
 const generateToken = require('../config/generateToken');
 const { hashPassword, comparePasswords } = require('../config/bcrypt');
 const User = require('../modals/userModel');
-const protect = require('../middleware/authmiddleware');
+const protect = require('../middleware/authMiddleware');
 
 
-router.post('/signup', expressAsyncHandler(async (req, res, next) => {
+router.post('/signup', async (req, res, next) => {
   // const { name, email, password } = req.body;
 
   // pre-existing user
@@ -37,10 +36,10 @@ router.post('/signup', expressAsyncHandler(async (req, res, next) => {
     res.send({ status: user })
   }
 
-}));
+});
 
 
-router.post('/login', expressAsyncHandler(async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
   const { email } = req.body;
   // console.log(req.body);
 
@@ -60,11 +59,11 @@ router.post('/login', expressAsyncHandler(async (req, res, next) => {
     res.status(401);
     throw new Error("User Doesn't Exist");
   }
-}));
+});
 
 
 
-router.post('/update_info', protect, expressAsyncHandler(async (req, res, next) => {
+router.post('/update_info', protect, async (req, res, next) => {
   // const { name, email, password } = req.body;
 
   // pre-existing user
@@ -92,6 +91,6 @@ router.post('/update_info', protect, expressAsyncHandler(async (req, res, next) 
     throw new Error("User Doesn't Exist");
   }
 
-}));
+});
 
 module.exports = router;
