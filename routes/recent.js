@@ -28,7 +28,7 @@ router.post('/store_crop_name', protect, async (req, res, next) => {
             res.send({ data: search });
         }
     } catch (error) {
-        throw new Error("Crop already exists");
+        console.log("Crop already exists");
     }
 })
 
@@ -51,7 +51,7 @@ router.post('/submit', protect, async (req, res, next) => {
 
         res.status(201).send({ message: 'Soil information stored successfully' });
     } catch (error) {
-        res.status(500).send({ error: error.message });
+        res.status(500).send(error.message);
     }
 });
 
@@ -60,7 +60,7 @@ router.get('/recent_crop', protect, async (req, res, next) => {
         const recentCrop = await Crop.find({ user: req.id });
         res.status(200).send({ recentCrop });
     } catch (error) {
-        res.status(500).send({ error: error.message });
+        res.status(500).send(error.message );
     }
 })
 
@@ -69,7 +69,7 @@ router.get('/recent_soil', protect, async (req, res, next) => {
         const recentSearch = await Recent.find({ user: req.id });
         res.status(200).send({ recentSearch });
     } catch (error) {
-        res.status(500).send({ error: error.message });
+        res.status(500).send(error.message );
     }
 })
 

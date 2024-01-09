@@ -10,11 +10,11 @@ router.get('/:token', protect, async (req, res, next) => {
     try {
         const user = await User.findById(req.id);
         if (!user) {
-            throw new Error("User not found");
+            res.send("User not found");
         }
         else res.status(200).send({ data: user, token })
     } catch (error) {
-        throw new Error("Internal server error", error)
+        console.log("Internal server error", error)
     }
 })
 
