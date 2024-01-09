@@ -51,7 +51,7 @@ router.post('/submit', protect, async (req, res, next) => {
 
         res.status(201).send({ message: 'Soil information stored successfully' });
     } catch (error) {
-        res.status(500).send(error.message);
+        res.send(error.message);
     }
 });
 // ye crop form k liye h
