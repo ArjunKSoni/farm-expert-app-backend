@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const saltRounds = 10; 
+const saltRounds = 7; 
 
 const hashPassword = async (password) => {
   try {
@@ -16,7 +16,7 @@ const comparePasswords = async (password, hashedPassword) => {
     const passwordMatch = await bcrypt.compareSync(password, hashedPassword);
     return passwordMatch;
   } catch (error) {
-    throw new Error('Password comparison failed');
+    console.log('Password comparison failed');
   }
 };
 
