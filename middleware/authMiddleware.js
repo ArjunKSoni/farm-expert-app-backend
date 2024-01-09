@@ -12,7 +12,7 @@ const protect = async (req, res, next) => {
                 const decoded = jwt.verify(token, process.env.JWT_SECRET);
                 const userExist = await User.findById(decoded.id);
                 if (!userExist) {
-                    throw new Error("Wrong ID");
+                    res.send("Wrong ID");
                 }
                 else {
                     req.id = userExist._id
@@ -20,19 +20,17 @@ const protect = async (req, res, next) => {
                 }
                 // console.log(req);
             } catch (error) {
-                res.status(401);
-                throw new Error("Not authorised, token failed");
+                console.log("Not authorised, token failed");
             }
         }
         // if there is no token at all
         if (!token) {
-            res.status(401);
-            throw new Error("Not authorised, no token");
+            res.send("Not authorised, no token");
         }
     }
     catch (error) {
         console.error('Error in protect middleware:', error);
-        res.status(401).send({ error: 'Not authorized' });
+        res.send('Not authorized');
     }
 }
 
