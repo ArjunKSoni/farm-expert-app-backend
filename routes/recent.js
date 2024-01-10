@@ -54,7 +54,7 @@ router.post('/submit', protect, async (req, res, next) => {
         res.status(500).send(error.message);
     }
 });
-// ye crop form k liye h
+// for crop form
 router.get('/recent_crop', protect, async (req, res, next) => {
     try {
         const recentCrop = await Crop.find({ user: req.id });
@@ -63,7 +63,7 @@ router.get('/recent_crop', protect, async (req, res, next) => {
         res.status(500).send(error.message );
     }
 })
-// ye soil form k liye h
+// for soil form
 router.get('/recent_soil', protect, async (req, res, next) => {
     try {
         const recentSearch = await Recent.find({ user: req.id });
