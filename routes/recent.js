@@ -54,7 +54,32 @@ router.post('/submit', protect, async (req, res, next) => {
         res.send(error.message);
     }
 });
-// ye crop form k liye h
+
+// api to store crop form info
+router.post('/storeCrop', protect, async (req, res, next) => {
+    try {
+        const { cropname,nitrogen, phosphorous, potassium, temperature, humidity, rainfall, ph } = req.body;
+        const newCropInfo = new Recent({
+            user: req.id,
+            crop: req.body.cropname,
+            Nitrogen: req.body.nitrogen,
+            Phosphorous: req.body.phosphorous,
+            Potassium: req.body.potassium,
+            Temperature: req.body.temperature,
+            Humidity: req.body.humidity,
+            Rainfall: req.body.rainfall,
+            Ph: req.body.ph
+        });
+        await newCropInfo.save();
+
+        res.status(201).send({ message: 'Crop information stored successfully' });
+    } catch (error) {
+        res.send(error.message);
+    }
+});
+
+
+// for crop form
 router.get('/recent_crop', protect, async (req, res, next) => {
     try {
         const recentCrop = await Crop.find({ user: req.id });
@@ -63,7 +88,7 @@ router.get('/recent_crop', protect, async (req, res, next) => {
         res.status(500).send(error.message );
     }
 })
-// ye soil form k liye h
+// for soil form
 router.get('/recent_soil', protect, async (req, res, next) => {
     try {
         const recentSearch = await Recent.find({ user: req.id });
