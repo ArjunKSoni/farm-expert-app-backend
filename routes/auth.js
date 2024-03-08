@@ -10,7 +10,7 @@ router.post('/signup', async (req, res, next) => {
   // const { name, email, password } = req.body;
 
   // pre-existing user
-  const userExist = await User.findOne({ Email: req.body.email });
+  const userExist = await User.findOne({ email: req.body.email });
   if (userExist) {
     return res.send("User already exists");
   }
@@ -49,6 +49,7 @@ router.post('/login', async (req, res, next) => {
   if (user) {
     const passwordMatch = await comparePasswords(req.body.password, user.password);
     if (passwordMatch) {
+      const token = generateToken(user._id);
       res.send({ user: user,token });
     }
     else {
