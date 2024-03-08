@@ -49,6 +49,7 @@ router.post('/login', async (req, res, next) => {
   if (user) {
     const passwordMatch = await comparePasswords(req.body.password, user.password);
     if (passwordMatch) {
+      const token = generateToken(user._id);
       res.send({ user: user,token });
     }
     else {

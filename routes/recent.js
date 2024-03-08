@@ -10,7 +10,7 @@ router.post('/store_crop_name', protect, async (req, res, next) => {
     try {
         const searchExist = await Crop.findOne({crop:req.body.cropname})
         if(!searchExist){
-            const search = new Recent({
+            const search = new Crop({
                 user : req.id,
                 crop : req.body.cropname,
             })
