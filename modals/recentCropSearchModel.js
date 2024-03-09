@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const recentCropModel = mongoose.Schema({
+// recent crop search
+const recentCropSearchModel = mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
@@ -12,5 +13,5 @@ const recentCropModel = mongoose.Schema({
     timestamps: true
 });
 
-const Crop = mongoose.model("Crop", recentCropModel );
-module.exports = Crop;
+const CropSearch = mongoose.model("CropSearch", recentCropSearchModel );
+module.exports = CropSearch;

@@ -3,7 +3,7 @@ var router = express.Router();
 const jwt = require('jsonwebtoken');
 const generateToken = require('../config/generateToken');
 const User = require('../modals/userModel');
-const Recent = require('../modals/recentModel');
+const Recent = require('../modals/recentCropFormModel');
 const protect = require('../middleware/authMiddleware');
 
 router.get('/:token', async (req, res) => {

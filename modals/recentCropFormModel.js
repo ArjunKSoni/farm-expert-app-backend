@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const recentModel = mongoose.Schema({
+// recent crop form fill
+const recentCropFormModel = mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
@@ -34,5 +35,5 @@ const recentModel = mongoose.Schema({
     timestamps: true
 });
  
-const Recent = mongoose.model("Recent", recentModel );
-module.exports = Recent;
+const Crop = mongoose.model("Crop", recentCropFormModel );
+module.exports = Crop;
