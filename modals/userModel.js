@@ -6,7 +6,7 @@ const userModel = mongoose.Schema({
         required: true
     },
     kisanid:{
-        type: Number,
+        type: String,
         required: true
     },
     address:{

@@ -35,7 +35,6 @@ router.post('/signup', async (req, res, next) => {
     // console.log("1", user);
     return res.send({ user: user,token })
   }
-
 });
 
 
