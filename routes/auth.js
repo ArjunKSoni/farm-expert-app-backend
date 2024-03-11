@@ -10,73 +10,78 @@ router.post('/signup', async (req, res, next) => {
   // const { name, email, password } = req.body;
 
   // pre-existing user
-  const userExist = await User.findOne({ email: req.body.email });
-  if (userExist) {
-    return res.send("User already exists");
-  }
-  else {
-    var Pass = await hashPassword(req.body.password);
-    const NewUser = new User({
-      name: req.body.name,
-      email: req.body.email,
-      mobile: req.body.mobile,
-      password: Pass,
-      address: req.body.address,
-      kisanid: req.body.kisanid,
-    })
-    await NewUser.save();
+  try {
+    const userExist = await User.findOne({ email: req.body.email });
+    if (userExist) {
+      return res.send("User already exists");
+    } else {
+      var Pass = await hashPassword(req.body.password);
+      const NewUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        mobile: req.body.mobile,
+        password: Pass,
+        address: req.body.address,
+        kisanid: req.body.kisanid,
+        profileimg: req.body.profileimg
+      });
+      await NewUser.save();
 
-    const token = generateToken(NewUser._id);
-    NewUser.token = token;
-    await NewUser.save();
-    console.log("token", token);
+      const token = generateToken(NewUser._id);
+      NewUser.token = token;
+      await NewUser.save();
+      // console.log("token", token);
 
-    const user = await User.findById(NewUser._id);
-    // console.log("1", user);
-    return res.send({ user: user,token })
+      const user = await User.findById(NewUser._id);
+      return res.send({ user: user, token });
+    }
+  } catch (error) {
+    res.status(500).send("Error in signup", error.message);
   }
 });
 
 
 router.post('/login', async (req, res, next) => {
-  const { email } = req.body;
-  // console.log(req.body);
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
 
-  console.log(req.body.email);
-  const user = await User.findOne({ email });
+    if (user) {
+      const passwordMatch = await comparePasswords(req.body.password, user.password);
+      if (passwordMatch) {
+        const token = generateToken(user._id);
+        res.send({ user: user, token });
+      } else {
+        res.send("Incorrect Password");
+      }
+    } else {
+      res.send("User Doesn't Exist");
+    }
+  } catch (error) {
+    res.status(500).send("Error in login",error.message);
+  }
 
-  if (user) {
-    const passwordMatch = await comparePasswords(req.body.password, user.password);
-    if (passwordMatch) {
-      const token = generateToken(user._id);
-      res.send({ user: user,token });
-    }
-    else {
-      res.send("Incorrect Password")
-    }
-  }
-  else {
-    res.send("User Doesn't Exist");
-  }
 });
 
 
 
 router.post('/update_info', protect, async (req, res, next) => {
-  const existingUser = await User.findById(req.id);
-  console.log(existingUser)
-  if (existingUser) {
-    existingUser.name = req.body.name;
-    existingUser.mobile = req.body.mobile;
-    existingUser.address = req.body.address;
-    existingUser.kisanid = req.body.kisanid;
-    
-    await existingUser.save();
-    res.send({ status: 'User information updated successfully' });
-  }
-  else {
+  try {
+    const existingUser = await User.findById(req.id);
+    if (existingUser) {
+      existingUser.name = req.body.name;
+      existingUser.mobile = req.body.mobile;
+      existingUser.address = req.body.address;
+      existingUser.kisanid = req.body.kisanid;
+      existingUser.profileimg = req.body.profileimg;
 
-    res.send("User Doesn't Exist");
+      await existingUser.save();
+      res.send('User information updated successfully');
+    } else {
+      res.send("User Doesn't Exist");
+    }
+  } catch (error) {
+    res.status(500).send("Error in updating info",error.message);
   }
 
 });
