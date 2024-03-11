@@ -64,7 +64,7 @@ router.post('/submit_soil', protect, async (req, res, next) => {
             ph: req.body.ph
         });
         await newCropInfo.save();
-        res.status(201).send({ message: 'Soil information stored successfully' });
+        res.status(201).send('Soil information stored successfully');
     } catch (error) {
         res.status(500).send("Error in fetching storing soil info to history",error.message );
     }
@@ -87,7 +87,7 @@ router.post('/submit_crop', protect, async (req, res, next) => {
         });
         await newCropInfo.save();
 
-        res.status(201).send({ message: 'Crop information stored successfully' });
+        res.status(201).send('Crop information stored successfully');
     } catch (error) {
         res.status(500).send("Error in fetching storing crop info to history",error.message );
     }
