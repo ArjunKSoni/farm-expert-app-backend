@@ -24,8 +24,10 @@ const userModel = mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    profileimg: {
+        type: String
     }
-    // recent searches
 }, {
     timeStamp: true
 });

@@ -5,18 +5,22 @@ const CropSearch = require('../modals/recentCropSearchModel');
 const Soil = require('../modals/recentSoilFormModel');
 const Crop = require('../modals/recentCropFormModel');
 
-// FindByIdAndUpdate
 
 // For storing recent searched crop names
 router.post('/store_crop', protect, async (req, res, next) => {
     try {
         const searchExist = await CropSearch.findOne({crop:req.body.cropname})
         if(!searchExist){
+            let arr = await CropSearch.find({ user: req.id }).sort({ createdAt: -1 });
+            if (arr.length === 5) {
+                await CropSearch.findByIdAndDelete(arr[4]._id);                
+                arr = await CropSearch.find({ user: req.id }).sort({ createdAt: -1 }); // Fetch updated searches after deletion
+
+            }
             const search = new CropSearch({
                 user : req.id,
                 crop : req.body.cropname,
             })
-
             await search.save();
             res.send({ data: search });
         }
@@ -30,7 +34,7 @@ router.post('/store_crop', protect, async (req, res, next) => {
             res.send({ data: search });
         }
     } catch (error) {
-        console.log("Crop already exists");
+        res.status(500).send("Error in storing crop",error.message );
     }
 })
 
@@ -40,7 +44,7 @@ router.get('/fetch_crop', protect, async(req,res,next)=>{
         const recentCrop = await CropSearch.find({ user: req.id });
         res.status(200).send({ recentCrop });
     } catch (error) {
-        res.status(500).send(error.message );
+        res.status(500).send("Error in fetching the stored crops in recent searches",error.message );
     }
 })
 
@@ -62,7 +66,7 @@ router.post('/submit_soil', protect, async (req, res, next) => {
         await newCropInfo.save();
         res.status(201).send({ message: 'Soil information stored successfully' });
     } catch (error) {
-        res.send(error.message);
+        res.status(500).send("Error in fetching storing soil info to history",error.message );
     }
 });
 
@@ -85,7 +89,7 @@ router.post('/submit_crop', protect, async (req, res, next) => {
 
         res.status(201).send({ message: 'Crop information stored successfully' });
     } catch (error) {
-        res.send(error.message);
+        res.status(500).send("Error in fetching storing crop info to history",error.message );
     }
 });
 
@@ -96,7 +100,7 @@ router.get('/recent_crop', protect, async (req, res, next) => {
         const recentCrop = await Crop.find({ user: req.id });
         res.status(200).send({ recentCrop });
     } catch (error) {
-        res.status(500).send(error.message );
+        res.status(500).send("Error in fecthing crop info from history",error.message );
     }
 })
 
@@ -106,7 +110,7 @@ router.get('/recent_soil', protect, async (req, res, next) => {
         const recentSearch = await Soil.find({ user: req.id });
         res.status(200).send({ recentSearch });
     } catch (error) {
-        res.status(500).send(error.message );
+        res.status(500).send("Error in fecthing soil info from history",error.message );
     }
 })
 

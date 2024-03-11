@@ -23,6 +23,7 @@ router.post('/signup', async (req, res, next) => {
       password: Pass,
       address: req.body.address,
       kisanid: req.body.kisanid,
+      profileimg: req.body.profileimg
     })
     await NewUser.save();
 
@@ -70,6 +71,7 @@ router.post('/update_info', protect, async (req, res, next) => {
     existingUser.mobile = req.body.mobile;
     existingUser.address = req.body.address;
     existingUser.kisanid = req.body.kisanid;
+    existingUser.body.profileimg = req.body.profileimg;
     
     await existingUser.save();
     res.send({ status: 'User information updated successfully' });
