@@ -64,7 +64,6 @@ router.post('/login', async (req, res, next) => {
 });
 
 
-
 router.post('/update_info', protect, async (req, res, next) => {
   try {
     const existingUser = await User.findById(req.id);
@@ -74,6 +73,13 @@ router.post('/update_info', protect, async (req, res, next) => {
       existingUser.address = req.body.address;
       existingUser.kisanid = req.body.kisanid;
       existingUser.profileimg = req.body.profileimg;
+      existingUser.nitrogen = req.body.nitrogen;
+      existingUser.phosphorous = req.body.phosphorous;
+      existingUser.potassium = req.body.potassium;
+      existingUser.temperature = req.body.temperature;
+      existingUser.humidity = req.body.humidity;
+      existingUser.rainfall = req.body.rainfall;
+      existingUser.ph = req.body.ph;    
 
       await existingUser.save();
       res.send('User information updated successfully');
@@ -83,7 +89,6 @@ router.post('/update_info', protect, async (req, res, next) => {
   } catch (error) {
     res.status(500).send("Error in updating info",error.message);
   }
-
 });
 
 module.exports = router;

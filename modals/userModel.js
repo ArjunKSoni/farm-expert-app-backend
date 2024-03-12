@@ -27,6 +27,27 @@ const userModel = mongoose.Schema({
     },
     profileimg: {
         type: String
+    },
+    nitrogen:{
+        type: Number, 
+    },
+    phosphorous:{
+        type: Number, 
+    },
+    potassium:{
+        type: Number, 
+    },
+    temperature:{
+        type: Number, 
+    },
+    humidity:{
+        type: Number, 
+    },
+    rainfall:{
+        type: Number, 
+    },
+    ph:{
+        type: Number, 
     }
 }, {
     timeStamp: true
